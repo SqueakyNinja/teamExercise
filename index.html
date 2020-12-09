@@ -8,15 +8,16 @@
   </head>
   
   <body>
-    <nav>
-      <div class="navbar">
+    <header>
+      <nav class="navbar">      
         <a href="index.html">Nim</a>
         <a href="mattias.html">Mattias</a>
         <a href="emma.html">Emma</a>
         <a href="rasmus.html">Rasmus</a>
-        <a href="alexander.html">Alexander</a>
-      </div>
+        <a href="alexander.html">Alexander</a>      
     </nav>
+    </header>
+
     <div>
       gg<h1>Nim</h1>
     </div>
@@ -59,8 +60,10 @@
         <button type="button" onclick="sticks.removeSticks(3)">Take 3</button>
       </div>
       <div>
-        <span id="stick"></span>
+        <p>Sticks: <span id="stick"></span></p>
+        <p>Highscore: <span class="highscore">0</span></p>
       </div>
+      
       <script src="script.js"></script>
   </body>
 </html>
