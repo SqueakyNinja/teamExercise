@@ -13,27 +13,19 @@ class Player {
 }
 
 class Stick {
-  constructor(sticks = 21) {
-      this.sticks = sticks;
+  constructor() {
+      this.sticks = 21;
     //   this.noOfSticks?
   }
-  removeSticks() {
-
+  removeSticks(number) {
+    sticks.sticks -= number;
+    document.getElementById('stick').textContent = sticks.sticks;
   }
   setAmountOfSticks() {
-    document.getElementById('stick').textContent = sticks;
+    document.getElementById('stick').textContent = sticks.sticks;
   }
 }
 
+let sticks = new Stick
 
-
-
-
-
-
-
-
-
-
-
-
+sticks.setAmountOfSticks();
