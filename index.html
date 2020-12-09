@@ -23,8 +23,31 @@
     <div id="intro">
       <span> Vi ha två spelare och en hög med 21 stickor,spelarna turas om att ta en, två eller tre stickor,Spelaren som tar den sista stickan förlorar. </span>
     </div>
-    
     <br />
     <hr />
+    <div id="form1">
+      <h1>The Nim Game</h1>
+      <form id="form">
+        Player 1
+        <br>
+          <input type="text" id="name1" placeholder="Name">
+          <select name="Player 1">
+            <option value="Human">Human</option>
+            <option value="CPU">CPU</option>
+          </select>
+        <br><br>
+        Player 2
+        <br>
+          <input type="text" id="name2" placeholder="Name">
+          <select name="Player 2">
+            <option value="CPU">CPU</option>
+            <option value="Human">Human</option>
+          </select>
+
+      </div>
+      <div>
+        <span id="stick"></span>
+      </div>
+      <script src="script.js"></script>
   </body>
 </html>
