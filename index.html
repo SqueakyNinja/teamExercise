@@ -9,7 +9,8 @@
   
   <body>
     <header>
-      <nav class="navbar">      
+      <nav class="navbar"> 
+        <a href="index.html" class= "site-logo"><img src="logo.png" alt="logo"></a>
         <a href="index.html">Nim</a>
         <a href="mattias.html">Mattias</a>
         <a href="emma.html">Emma</a>
@@ -19,7 +20,7 @@
     </header>
 
     <div>
-      gg<h1>Nim</h1>
+      <h1>Nim</h1>
     </div>
     <div id="intro">
       <span> Vi ha två spelare och en hög med 21 stickor,spelarna turas om att ta en, två eller tre stickor,Spelaren som tar den sista stickan förlorar. </span>
@@ -28,30 +29,33 @@
     <hr />
     <div id="form1">
       <form id="form">
-        Player 1
+       <p id="player1Name">Player 1</p>
         <br>
           <input type="text" id="name1" placeholder="Name">
+					<button type="submit" onclick="game.player1.setName()">Set name</button>
           <select name="Player 1">
             <option value="Human">Human</option>
             <option value="CPU">CPU</option>
           </select>
         <br><br>
-        Player 2
+      <p id="player2Name">Player 2</p>
         <br>
           <input type="text" id="name2" placeholder="Name">
+					<button type="submit" onclick="game.player2.setName()">Set name</button>
           <select name="Player 2">
             <option value="CPU">CPU</option>
             <option value="Human">Human</option>
           </select>
         <br>
-          total marbeles:
-          <input type= "number" id="totalinput" placeholder="Type in number">
+          Total sticks:
+          <input type="number" id="totalInput" placeholder="Type in number">
+					<button type="submit" onclick="game.setTotal()">Set max sticks</button>
           <br>
           Maximum grab:
         <input type="number" id="max" placeholder="Type in number">
       </form>
        <br>
-       <button id="startbutton" type= "button" onclick= "start()"> start game </button>
+       <button id="startbutton" type="button" onclick="game.start()">start game</button>
        <button type="button" class="btn again">Again!</button>
       </div>
       <div class="buttons-div">
