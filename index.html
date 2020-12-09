@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="styles.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NIM</title>
     <link rel="stylesheet" href="style.css" />
   </head>
+  
   <body>
     <nav>
       <div class="navbar">
@@ -18,7 +18,7 @@
       </div>
     </nav>
     <div>
-      <h1>Nim</h1>
+      gg<h1>Nim</h1>
     </div>
     <div id="intro">
       <span> Vi ha två spelare och en hög med 21 stickor,spelarna turas om att ta en, två eller tre stickor,Spelaren som tar den sista stickan förlorar. </span>
@@ -26,7 +26,6 @@
     <br />
     <hr />
     <div id="form1">
-      <h1>The Nim Game</h1>
       <form id="form">
         Player 1
         <br>
@@ -43,7 +42,21 @@
             <option value="CPU">CPU</option>
             <option value="Human">Human</option>
           </select>
-
+        <br>
+          total marbeles:
+          <input type= "number" id="totalinput" placeholder="Type in number">
+          <br>
+          Maximum grab:
+        <input type="number" id="max" placeholder="Type in number">
+      </form>
+       <br>
+       <button id="startbutton" type= "button" onclick= "start()"> start game </button>
+       <button type="button" class="btn again">Again!</button>
+      </div>
+      <div class="buttons-div">
+        <button type="button" onclick="sticks.removeSticks(1)">Take 1</button>
+        <button type="button" onclick="sticks.removeSticks(2)">Take 2</button>
+        <button type="button" onclick="sticks.removeSticks(3)">Take 3</button>
       </div>
       <div>
         <span id="stick"></span>
