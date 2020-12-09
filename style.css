@@ -40,6 +40,11 @@ body {
     padding: 5px;
     
 }
+#intro span{
+  font-weight:500;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+}
 
 /* Styling for Mattias.html */
 
