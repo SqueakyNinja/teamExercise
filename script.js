@@ -1,17 +1,24 @@
 class Game {
 	constructor() {
-		this.player1 = new Player(1)
-		this.player2 = new Player(2)
+		this.player1 = new Player("Player 1", 1)
+		this.player2 = new Player("Player 2", 2)
+		this.playersArray = [this.player1, this.player2]
+		this.activeNumber = Math.floor(Math.random() * 2)
+		this.activePlayerNumber = this.playersArray[this.activeNumber].id
+		this.lastPlayer = document.getElementById("player" + this.activePlayerNumber + "Name")
+		this.currentPlayer = document.getElementById("player" + this.activePlayerNumber + "Name")
+		this.setActivePlayer();
 	}
 	start() {
 		sticks.noOfSticks = 21
-		document.getElementById('stick').innerHTML = 21;   
+		document.getElementById('stick').innerHTML = 21;
 
-    //let playerOne = prompt('Player 1, what is your name?');
-    //let playerTwo = prompt('Player 2, what is your name?');
-    
+    /*
+		let playerOne = prompt('Player 1, what is your name?');
+		let playerTwo = prompt('Player 2, what is your name?');
 
-    /*if(playerOne != null) {
+
+    if(playerOne != null) {
     document.getElementById('player1Name').innerHTML = playerOne;
     }
     if(playerTwo != null) {
@@ -19,13 +26,21 @@ class Game {
     } */
     
 	}
+	setActivePlayer() {
+		this.lastPlayer = document.getElementById("player" + this.activePlayerNumber + "Name")
+		this.activeNumber = (this.activeNumber + 1) % this.playersArray.length;
+		this.activePlayerNumber = this.playersArray[this.activeNumber].id
+		this.currentPlayer = document.getElementById("player" + this.activePlayerNumber + "Name")
+		this.lastPlayer.classList.remove("active")
+		this.currentPlayer.classList.add("active")
+	}
 
 	lostGame() {
 		if (sticks.noOfSticks <= 0) {
-			alert('You lost the game!');
+			alert(this.currentPlayer.innerHTML + ' lost the game!');
 			document.getElementById('stick').innerHTML = 0;
 		}
-	} 
+	}
 	setTotal() {
 		event.preventDefault()
 		sticks.noOfSticks = document.getElementById("totalInput").value
@@ -34,8 +49,8 @@ class Game {
 }
 
 class Player {
-	constructor(id) {
-		this.name = null;
+	constructor(name, id) {
+		this.name = name;
 		this.id = id;
 	}
 	setName() {
@@ -56,6 +71,13 @@ class Stick {
 		sticks.noOfSticks -= number;
 		document.getElementById('stick').innerHTML = sticks.noOfSticks;
 		game.lostGame();
+		game.setActivePlayer();
+			if (this.noOfSticks <= 0) {
+				console.log("disabled")
+			document.getElementById("take1Button").disabled === true
+			document.getElementById("take2Button").disabled === true
+			document.getElementById("take3Button").disabled === true
+		}
 	}
 	setAmountOfSticks() {
 		document.getElementById('stick').innerHTML = sticks.noOfSticks;
@@ -64,14 +86,22 @@ class Stick {
 
 let game = new Game
 
+
+
+
 let sticks = new Stick
 
 sticks.setAmountOfSticks();
 
 
 function again() {
-  location.reload (true)
+	location.reload(true)
 }
- var switchplayer =function() {
-   
- }
+
+function switchPlayer() {
+	if (currentPlayer === 'p1') {
+		player = 'p2';
+	} else {
+		player = 'p1';
+	}
+}
