@@ -13,25 +13,14 @@ class Game {
     );
     this.setActivePlayer();
   }
-  start() {
-    let playerOne = prompt("Player 1, what is your name?");
-    let playerTwo = prompt("Player 2, what is your name?");
-
-    if (playerOne != null) {
-      document.getElementById("player1Name").innerHTML = playerOne;
-    }
-    if (playerTwo != null) {
-      document.getElementById("player2Name").innerHTML = playerTwo;
-    }
-  }
 
   playAgain() {
     sticks.noOfSticks = 21;
     sticks.removeCounter = sticks.noOfSticks;
-    document.getElementById("stick").innerHTML = 21;
     document.getElementById("take1Button").disabled = false;
     document.getElementById("take2Button").disabled = false;
     document.getElementById("take3Button").disabled = false;
+    sticks.createSticks();
   }
 
   setActivePlayer() {
@@ -71,6 +60,8 @@ class Player {
     this.name = document.getElementById("name" + this.id).value;
     document.getElementById("player" + this.id + "Name").innerHTML = this.name;
     document.getElementById("name" + this.id).value = "";
+    game.setActivePlayer();
+    game.playAgain();
   }
 }
 
@@ -82,6 +73,10 @@ class Stick {
     this.createSticks();
   }
   createSticks() {
+    let sticksDiv = document.getElementById("sticksDiv");
+    while (sticksDiv.firstChild) {
+      sticksDiv.removeChild(sticksDiv.firstChild);
+    }
     // Counter is to set id on each stick
     let counter = 1;
 
@@ -154,7 +149,6 @@ class Stick {
       currentSticksDiv.removeChild(currentStick);
       this.removeCounter--;
       sticks.noOfSticks--;
-      document.getElementById("stick").innerHTML = sticks.noOfSticks;
     }
 
     game.lostGame();
@@ -165,16 +159,11 @@ class Stick {
       document.getElementById("take3Button").disabled = true;
     }
   }
-  setAmountOfSticks() {
-    document.getElementById("stick").innerHTML = sticks.noOfSticks;
-  }
 }
 
 let game = new Game();
 
 let sticks = new Stick();
-
-sticks.setAmountOfSticks();
 
 function again() {
   location.reload(true);

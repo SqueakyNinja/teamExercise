@@ -1,17 +1,17 @@
 /* Styling for index.html */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,700;1,400&display=swap");
 
-body {
+body,
+html {
   font-family: "Montserrat", sans-serif;
-  height: 100%;
 }
 .bgImage {
   background-color: #991400;
   background-image: url(bakgrund.png);
   background-repeat: no-repeat;
+  background-position: center;
   background-size: cover;
   filter: blur(4px);
-  height: 100%;
 }
 .navbar {
   display: flex;
@@ -67,6 +67,9 @@ p {
 
 .mainDiv {
   background-color: snow;
+  /* position: fixed; */
+  /* left: 0; */
+  /* top: 0; */
 }
 
 .containerPlayer2,
@@ -99,6 +102,7 @@ p {
   display: flex;
   width: 100%;
   justify-content: center;
+  height: 104px;
 }
 .sticksRow > * + * {
   margin-left: 100px;
