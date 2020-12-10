@@ -27,14 +27,12 @@ body {
 
 h1 {
   font-size: 40px;
-  font-family: Marker Felt, fantasy;
   background-color: grey;
 }
 
 .navbar {
   font-size: 40px;
   position: relative;
-  font-family: Marker Felt, fantasy;
 }
 
 p {
