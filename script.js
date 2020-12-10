@@ -13,25 +13,26 @@ class Game {
     );
     this.setActivePlayer();
   }
-  start() {
-    sticks.noOfSticks = 21;
-    document.getElementById("stick").innerHTML = 21;
-    document.getElementById("take1Button").disabled = false;
-    document.getElementById("take2Button").disabled = false;
-    document.getElementById("take3Button").disabled = false;
-
-    /*
+  start() {    
 		let playerOne = prompt('Player 1, what is your name?');
 		let playerTwo = prompt('Player 2, what is your name?');
-
 
     if(playerOne != null) {
     document.getElementById('player1Name').innerHTML = playerOne;
     }
     if(playerTwo != null) {
     document.getElementById('player2Name').innerHTML = playerTwo;
-    } */
-  }
+		} 	
+	}
+	
+	playAgain() {
+		sticks.noOfSticks = 21;
+		document.getElementById("stick").innerHTML = 21;
+		document.getElementById("take1Button").disabled = false;
+		document.getElementById("take2Button").disabled = false;
+		document.getElementById("take3Button").disabled = false;
+	}	
+
   setActivePlayer() {
     this.lastPlayer = document.getElementById(
       "player" + this.activePlayerNumber + "Name"
