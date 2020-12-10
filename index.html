@@ -40,9 +40,7 @@
             <option value="Human">Human</option>
             <option value="CPU">CPU</option>
           </select>
-    </div>    
-
-  
+    </div>      
 
     <div class="containerPlayer2">
       <p id="player2Name">Player 2</p>
@@ -57,16 +55,16 @@
   </div>
 
         <br>
-          Total sticks:
+          <p>Total sticks:</p> 
           <input type="number" id="totalInput" placeholder="Type in number">
 					<button type="submit" onclick="game.setTotal()">Set max sticks</button>
           <br>
-          Maximum grab:
+          <p>Maximum grab:</p> 
         <input type="number" id="max" placeholder="Type in number">
         </form>
        <br>
        <button id="startbutton" type="button" onclick="game.start()">start game</button>
-       <button type="button" class="btn again">Again!</button>
+       <button type="button" class="btn again" onclick="game.playAgain()">Again!</button>
       </div>
 
       <div class="buttons-div">
