@@ -178,3 +178,36 @@ function switchPlayer() {
     player = "p1";
   }
 }
+function highscorePage(usrName, usrScore) {
+  clearContent();
+  if(typeof usrScore !== 'undefined') {
+      highScores.push({Name: usrName, Score: usrScore});
+      scoreSorter();
+      storeScores();
+      usrScore = 'undefined';
+  }
+
+  $("#topContent").html("<h1>Highscores:</h1>");
+  
+  var tmp = "<ul class='list-group text-center' style='display:block;margin: 0 auto;max-width:300px;'>";
+  for (var x = 0; x < highScores.length; x++) {
+      if (x % 2 == 0) {
+          tmp += "<li class='list-group-item'><div style='text-align:left'>" + highScores[x].Name + "<span style='float:right'>"+ highScores[x].Score + "</span></div></li>";
+      }else{
+          tmp += "<li class='list-group-item list-group-item-success'><div style='text-align:left'>" + highScores[x].Name + "<span style='float:right'>"+ highScores[x].Score + "</span></div></li>";
+      }
+  }
+  tmp += "</ul>";
+  $("#middleContent").html(tmp);
+
+  $("#bottomContent").html("<button type='button' class='btn btn-info' id='clearHighscores'>Clear</button><button type='button' class='btn btn-primary' id='backBtn'>Back</button>");
+  
+  $("#backBtn").on("click", function() {
+      playAgain();
+  });
+  
+  $("#clearHighscores").on("click", function() {
+      clearScores();
+      return;
+  });
+}
