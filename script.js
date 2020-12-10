@@ -46,7 +46,8 @@ class Game {
   setTotal() {
     event.preventDefault();
     sticks.noOfSticks = document.getElementById("totalInput").value;
-    document.getElementById("stick").innerHTML = sticks.noOfSticks;
+    sticks.removeCounter = sticks.noOfSticks;
+    sticks.createSticks();
   }
 }
 
