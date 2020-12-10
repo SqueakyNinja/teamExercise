@@ -40,7 +40,6 @@ class Game {
   lostGame() {
     if (sticks.noOfSticks <= 0) {
       alert(this.currentPlayer.innerHTML + " lost the game!");
-      document.getElementById("stick").innerHTML = 0;
     }
   }
   setTotal() {
