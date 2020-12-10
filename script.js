@@ -1,10 +1,11 @@
 class Game {
   constructor() {
-    this.player1 = new Player("Player 1", 1);
-    this.player2 = new Player("Player 2", 2);
-    this.playersArray = [this.player1, this.player2];
+    this.playersArray = [];
+    this.idCounter = 1;
+    this.createFirstPlayers("Player 1", 1);
+    this.createFirstPlayers("Player 2", 2);
     this.activeNumber = Math.floor(Math.random() * 2);
-    this.activePlayerNumber = this.playersArray[this.activeNumber].id;
+    this.activePlayerNumber = this.playersArray[this.activeNumber].position;
     this.lastPlayer = document.getElementById(
       "player" + this.activePlayerNumber + "Name"
     );
@@ -13,7 +14,23 @@ class Game {
     );
     this.setActivePlayer();
   }
-
+  createFirstPlayers(name, position) {
+    let player = new Player(name, this.idCounter, position);
+    this.playersArray.push(player);
+    this.idCounter++;
+  }
+  createMorePlayers(number) {
+    event.preventDefault();
+    let player = new Player("", this.idCounter, number);
+    player.name = document.getElementById("name" + number).value;
+    document.getElementById("player" + player.position + "Name").innerHTML =
+      player.name;
+    document.getElementById("name" + player.position).value = "";
+    this.idCounter++;
+    this.playersArray.splice(number - 1, 1, player);
+    this.setActivePlayer();
+    this.playAgain();
+  }
   playAgain() {
     sticks.createSticks();
     sticks.noOfSticks = 21;
@@ -29,7 +46,7 @@ class Game {
       "player" + this.activePlayerNumber + "Name"
     );
     this.activeNumber = (this.activeNumber + 1) % this.playersArray.length;
-    this.activePlayerNumber = this.playersArray[this.activeNumber].id;
+    this.activePlayerNumber = this.playersArray[this.activeNumber].position;
     this.currentPlayer = document.getElementById(
       "player" + this.activePlayerNumber + "Name"
     );
@@ -51,24 +68,17 @@ class Game {
 }
 
 class Player {
-  constructor(name, id) {
+  constructor(name, id, position) {
     this.name = name;
     this.id = id;
     this.points = 0;
-  }
-  setName() {
-    event.preventDefault();
-    this.name = document.getElementById("name" + this.id).value;
-    document.getElementById("player" + this.id + "Name").innerHTML = this.name;
-    document.getElementById("name" + this.id).value = "";
-    game.setActivePlayer();
-    game.playAgain();
+    this.position = position;
   }
 }
 
 class Stick {
   constructor() {
-    this.noOfSticks = 1;
+    this.noOfSticks = 21;
     this.removeCounter = this.noOfSticks;
     this.activeDiv = 0;
     this.createSticks();
