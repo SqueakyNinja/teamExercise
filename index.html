@@ -10,24 +10,27 @@
   <body>
     <header>
       <nav class="navbar"> 
-        <a href="index.html" class= "site-logo"><img src="logo.png" alt="logo"></a>
-        <a href="index.html">Nim</a>
+    <a href="index.html" class= "site-logo"><img src="logo.png" alt="logo"></a>
+        <a href="rules.html">Rules</a> 
         <a href="mattias.html">Mattias</a>
         <a href="emma.html">Emma</a>
         <a href="rasmus.html">Rasmus</a>
-        <a href="alexander.html">Alexander</a>      
+        <a href="alexander.html">Alexander</a>           
     </nav>
     </header>
+    
 
-    <div>
-      <h1>Nim</h1>
-    </div>
-    <div id="intro">
-      <span> Vi ha två spelare och en hög med 21 stickor,spelarna turas om att ta en, två eller tre stickor,Spelaren som tar den sista stickan förlorar. </span>
-    </div>
-    <br />
-    <hr />
-    <div id="form1">
+     <div class="quote-container">
+            <div class="note yellow">
+                Två spelare och en hög med 21 stickor, spelarna turas om att ta en, två eller tre stickor. Spelaren som tar den sista stickan förlorar.
+            </div>
+        </div>
+
+
+    
+   
+  <div class="playersContainer">
+    <div class="containerPlayer1">
       <form id="form">
        <p id="player1Name">Player 1</p>
         <br>
@@ -37,7 +40,11 @@
             <option value="Human">Human</option>
             <option value="CPU">CPU</option>
           </select>
-        <br><br>
+    </div>    
+
+  
+
+    <div class="containerPlayer2">
       <p id="player2Name">Player 2</p>
         <br>
           <input type="text" id="name2" placeholder="Name">
@@ -46,6 +53,9 @@
             <option value="CPU">CPU</option>
             <option value="Human">Human</option>
           </select>
+    </div>
+  </div>
+
         <br>
           Total sticks:
           <input type="number" id="totalInput" placeholder="Type in number">
@@ -53,21 +63,48 @@
           <br>
           Maximum grab:
         <input type="number" id="max" placeholder="Type in number">
-      </form>
+        </form>
        <br>
        <button id="startbutton" type="button" onclick="game.start()">start game</button>
        <button type="button" class="btn again">Again!</button>
       </div>
+
       <div class="buttons-div">
-        <button type="button" onclick="sticks.removeSticks(1)">Take 1</button>
-        <button type="button" onclick="sticks.removeSticks(2)">Take 2</button>
-        <button type="button" onclick="sticks.removeSticks(3)">Take 3</button>
+        <button id="take1Button" type="button" onclick="sticks.removeSticks(1)">Take 1</button>
+        <button id="take2Button" type="button" onclick="sticks.removeSticks(2)">Take 2</button>
+        <button id="take3Button" type="button" onclick="sticks.removeSticks(3)">Take 3</button>
       </div>
+
       <div>
         <p>Sticks: <span id="stick"></span></p>
         <p>Highscore: <span class="highscore">0</span></p>
       </div>
+
+      <div id="sticksDiv">
+			</div>
+
+    <table class="highScore">
+      <thead>    
+        <tr>
+          <th>Name</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+
+  </table>
+
       
       <script src="script.js"></script>
-  </body>
+    </body>
 </html>

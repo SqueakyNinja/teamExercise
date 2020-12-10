@@ -12,6 +12,9 @@ class Game {
 	start() {
 		sticks.noOfSticks = 21
 		document.getElementById('stick').innerHTML = 21;
+		document.getElementById("take1Button").disabled = false
+		document.getElementById("take2Button").disabled = false
+		document.getElementById("take3Button").disabled = false
 
     /*
 		let playerOne = prompt('Player 1, what is your name?');
@@ -24,7 +27,7 @@ class Game {
     if(playerTwo != null) {
     document.getElementById('player2Name').innerHTML = playerTwo;
     } */
-    
+
 	}
 	setActivePlayer() {
 		this.lastPlayer = document.getElementById("player" + this.activePlayerNumber + "Name")
@@ -40,18 +43,22 @@ class Game {
 			alert(this.currentPlayer.innerHTML + ' lost the game!');
 			document.getElementById('stick').innerHTML = 0;
 		}
+
 	}
 	setTotal() {
 		event.preventDefault()
 		sticks.noOfSticks = document.getElementById("totalInput").value
 		document.getElementById('stick').innerHTML = sticks.noOfSticks
 	}
+
+
 }
 
 class Player {
 	constructor(name, id) {
 		this.name = name;
 		this.id = id;
+		this.points = 0;
 	}
 	setName() {
 		event.preventDefault()
@@ -65,18 +72,36 @@ class Player {
 class Stick {
 	constructor() {
 		this.noOfSticks = 21;
-
+		this.createSticks();
 	}
+	createSticks() {
+		let amountOfSticksPerRow = 1;
+		let j = this.noOfSticks
+		for (let i = 0; i < j; i++) {
+
+			if (i === amountOfSticksPerRow) {
+			//	console.log(amountOfSticksPerRow, i)
+			//	j -= amountOfSticksPerRow
+			//	a
+			//	i = 0
+			}
+
+			let img = document.createElement("img")
+			img.src = "tandsticka.png"
+			document.getElementById("sticksDiv").appendChild(img)
+		}
+	}
+
 	removeSticks(number) {
 		sticks.noOfSticks -= number;
 		document.getElementById('stick').innerHTML = sticks.noOfSticks;
+
 		game.lostGame();
 		game.setActivePlayer();
-			if (this.noOfSticks <= 0) {
-				console.log("disabled")
-			document.getElementById("take1Button").disabled === true
-			document.getElementById("take2Button").disabled === true
-			document.getElementById("take3Button").disabled === true
+		if (this.noOfSticks <= 0) {
+			document.getElementById("take1Button").disabled = true
+			document.getElementById("take2Button").disabled = true
+			document.getElementById("take3Button").disabled = true
 		}
 	}
 	setAmountOfSticks() {
