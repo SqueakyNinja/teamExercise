@@ -1,15 +1,15 @@
 class Game {
   constructor() {
-    this.player1 = new Player("Player 1", 1);
-    this.player2 = new Player("Player 2", 2);
+    this.player1 = new Player('Player 1', 1);
+    this.player2 = new Player('Player 2', 2);
     this.playersArray = [this.player1, this.player2];
     this.activeNumber = Math.floor(Math.random() * 2);
     this.activePlayerNumber = this.playersArray[this.activeNumber].id;
     this.lastPlayer = document.getElementById(
-      "player" + this.activePlayerNumber + "Name"
+      'player' + this.activePlayerNumber + 'Name'
     );
     this.currentPlayer = document.getElementById(
-      "player" + this.activePlayerNumber + "Name"
+      'player' + this.activePlayerNumber + 'Name'
     );
     this.setActivePlayer();
   }
@@ -22,49 +22,41 @@ class Game {
     }
     if (playerTwo != null) {
       document.getElementById('player2Name').innerHTML = playerTwo;
-    let playerOne = prompt("Player 1, what is your name?");
-    let playerTwo = prompt("Player 2, what is your name?");
-
-    if (playerOne != null) {
-      document.getElementById("player1Name").innerHTML = playerOne;
-    }
-    if (playerTwo != null) {
-      document.getElementById("player2Name").innerHTML = playerTwo;
     }
   }
 
   playAgain() {
     sticks.noOfSticks = 21;
     sticks.removeCounter = sticks.noOfSticks;
-    document.getElementById("stick").innerHTML = 21;
-    document.getElementById("take1Button").disabled = false;
-    document.getElementById("take2Button").disabled = false;
-    document.getElementById("take3Button").disabled = false;
+    document.getElementById('stick').innerHTML = 21;
+    document.getElementById('take1Button').disabled = false;
+    document.getElementById('take2Button').disabled = false;
+    document.getElementById('take3Button').disabled = false;
   }
 
   setActivePlayer() {
     this.lastPlayer = document.getElementById(
-      "player" + this.activePlayerNumber + "Name"
+      'player' + this.activePlayerNumber + 'Name'
     );
     this.activeNumber = (this.activeNumber + 1) % this.playersArray.length;
     this.activePlayerNumber = this.playersArray[this.activeNumber].id;
     this.currentPlayer = document.getElementById(
-      "player" + this.activePlayerNumber + "Name"
+      'player' + this.activePlayerNumber + 'Name'
     );
-    this.lastPlayer.classList.remove("active");
-    this.currentPlayer.classList.add("active");
+    this.lastPlayer.classList.remove('active');
+    this.currentPlayer.classList.add('active');
   }
 
   lostGame() {
     if (sticks.noOfSticks <= 0) {
-      alert(this.currentPlayer.innerHTML + " lost the game!");
-      document.getElementById("stick").innerHTML = 0;
+      alert(this.currentPlayer.innerHTML + ' lost the game!');
+      document.getElementById('stick').innerHTML = 0;
     }
   }
   setTotal() {
     event.preventDefault();
-    sticks.noOfSticks = document.getElementById("totalInput").value;
-    document.getElementById("stick").innerHTML = sticks.noOfSticks;
+    sticks.noOfSticks = document.getElementById('totalInput').value;
+    document.getElementById('stick').innerHTML = sticks.noOfSticks;
   }
 }
 
@@ -76,9 +68,9 @@ class Player {
   }
   setName() {
     event.preventDefault();
-    this.name = document.getElementById("name" + this.id).value;
-    document.getElementById("player" + this.id + "Name").innerHTML = this.name;
-    document.getElementById("name" + this.id).value = "";
+    this.name = document.getElementById('name' + this.id).value;
+    document.getElementById('player' + this.id + 'Name').innerHTML = this.name;
+    document.getElementById('name' + this.id).value = '';
   }
 }
 
@@ -105,11 +97,11 @@ class Stick {
     // do this while not all sticks has been added
     while (sticksAdded < sticksTotal) {
       // create a div with the temporary name newDiv
-      let newDiv = document.createElement("div");
-      newDiv.id = "sticksDiv" + sticksPerRow;
-      newDiv.classList.add("sticksRow");
+      let newDiv = document.createElement('div');
+      newDiv.id = 'sticksDiv' + sticksPerRow;
+      newDiv.classList.add('sticksRow');
       // appendChild sets the created element in the "parent" element selected with in this example getElementById
-      document.getElementById("sticksDiv").appendChild(newDiv);
+      document.getElementById('sticksDiv').appendChild(newDiv);
 
       // number that is required for removing sticks later
       this.activeDiv = sticksPerRow;
@@ -117,12 +109,12 @@ class Stick {
       // for the amount of sticks per row, create new sticks
       for (let i = 0; i < sticksPerRow; i++) {
         // same procedure as above
-        let newImg = document.createElement("img");
-        newImg.src = "tandsticka.png";
+        let newImg = document.createElement('img');
+        newImg.src = 'tandsticka.png';
         newImg.id = counter;
         // if the parent element  is hard to understand, check id of the elements in inspect in browser
-        document.getElementById("sticksDiv" + sticksPerRow).appendChild(newImg);
-        console.log("create stick nr " + (i + 1) + " on row " + sticksPerRow);
+        document.getElementById('sticksDiv' + sticksPerRow).appendChild(newImg);
+        console.log('create stick nr ' + (i + 1) + ' on row ' + sticksPerRow);
         counter++;
 
         // if all the sticks has been created, stop the creation of more sticks
@@ -149,32 +141,32 @@ class Stick {
 
   removeSticks(number) {
     let currentSticksDiv = document.getElementById(
-      "sticksDiv" + this.activeDiv
+      'sticksDiv' + this.activeDiv
     );
     for (let i = 0; i < number; i++) {
       if (currentSticksDiv.childElementCount <= 0) {
         this.activeDiv--;
         currentSticksDiv = document.getElementById(
-          "sticksDiv" + this.activeDiv
+          'sticksDiv' + this.activeDiv
         );
       }
       let currentStick = document.getElementById(this.removeCounter);
       currentSticksDiv.removeChild(currentStick);
       this.removeCounter--;
       sticks.noOfSticks--;
-      document.getElementById("stick").innerHTML = sticks.noOfSticks;
+      document.getElementById('stick').innerHTML = sticks.noOfSticks;
     }
 
     game.lostGame();
     game.setActivePlayer();
     if (this.noOfSticks <= 0) {
-      document.getElementById("take1Button").disabled = true;
-      document.getElementById("take2Button").disabled = true;
-      document.getElementById("take3Button").disabled = true;
+      document.getElementById('take1Button').disabled = true;
+      document.getElementById('take2Button').disabled = true;
+      document.getElementById('take3Button').disabled = true;
     }
   }
   setAmountOfSticks() {
-    document.getElementById("stick").innerHTML = sticks.noOfSticks;
+    document.getElementById('stick').innerHTML = sticks.noOfSticks;
   }
 }
 
@@ -189,9 +181,9 @@ function again() {
 }
 
 function switchPlayer() {
-  if (currentPlayer === "p1") {
-    player = "p2";
+  if (currentPlayer === 'p1') {
+    player = 'p2';
   } else {
-    player = "p1";
+    player = 'p1';
   }
 }
