@@ -20,9 +20,17 @@
     </header>
     
 
+<<<<<<< HEAD
     <div id="intro">
       Två spelare och en hög med 21 stickor,spelarna turas om att ta en, två eller tre stickor. Spelaren som tar den sista stickan förlorar.
     </div>
+=======
+     <div class="quote-container">
+            <div class="note yellow">
+                Två spelare och en hög med 21 stickor, spelarna turas om att ta en, två eller tre stickor. Spelaren som tar den sista stickan förlorar.
+            </div>
+        </div>
+>>>>>>> 84b5454e44332b967e19ff6cf0181f5710d81402
 
 
     
@@ -38,9 +46,13 @@
             <option value="Human">Human</option>
             <option value="CPU">CPU</option>
           </select>
+<<<<<<< HEAD
     </div>    
 
   
+=======
+    </div>      
+>>>>>>> 84b5454e44332b967e19ff6cf0181f5710d81402
 
     <div class="containerPlayer2">
       <p id="player2Name">Player 2</p>
@@ -55,16 +67,16 @@
   </div>
 
         <br>
-          Total sticks:
+          <p>Total sticks:</p> 
           <input type="number" id="totalInput" placeholder="Type in number">
 					<button type="submit" onclick="game.setTotal()">Set max sticks</button>
           <br>
-          Maximum grab:
+          <p>Maximum grab:</p> 
         <input type="number" id="max" placeholder="Type in number">
         </form>
        <br>
        <button id="startbutton" type="button" onclick="game.start()">start game</button>
-       <button type="button" class="btn again">Again!</button>
+       <button type="button" class="btn again" onclick="game.playAgain()">Again!</button>
       </div>
 
       <div class="buttons-div">
@@ -78,10 +90,10 @@
         <p>Highscore: <span class="highscore">0</span></p>
       </div>
 
-      <div id="sticksDiv" class="sticksDiv">
+      <div id="sticksDiv">
 			</div>
 
-    <table>
+    <table class="highScore">
       <thead>    
         <tr>
           <th>Name</th>
