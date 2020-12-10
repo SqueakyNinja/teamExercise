@@ -115,7 +115,7 @@ p {
 }
 .sticksRow {
   display: flex;
-  width: 50%;
+  width: 10%;
   justify-content: center;
   height: 104px;
 }

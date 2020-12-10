@@ -68,7 +68,7 @@ class Player {
 
 class Stick {
   constructor() {
-    this.noOfSticks = 21;
+    this.noOfSticks = 1;
     this.removeCounter = this.noOfSticks;
     this.activeDiv = 0;
     this.createSticks();
@@ -111,7 +111,6 @@ class Stick {
         newImg.id = counter;
         // if the parent element  is hard to understand, check id of the elements in inspect in browser
         document.getElementById("sticksDiv" + sticksPerRow).appendChild(newImg);
-        console.log("create stick nr " + (i + 1) + " on row " + sticksPerRow);
         counter++;
 
         // if all the sticks has been created, stop the creation of more sticks
@@ -141,14 +140,18 @@ class Stick {
       "sticksDiv" + this.activeDiv
     );
     for (let i = 0; i < number; i++) {
-      if (currentSticksDiv.childElementCount <= 0) {
-        this.activeDiv--;
-        currentSticksDiv = document.getElementById(
-          "sticksDiv" + this.activeDiv
-        );
+      if (currentSticksDiv) {
+        if (currentSticksDiv.childElementCount <= 0) {
+          this.activeDiv--;
+          currentSticksDiv = document.getElementById(
+            "sticksDiv" + this.activeDiv
+          );
+        }
       }
       let currentStick = document.getElementById(this.removeCounter);
-      currentSticksDiv.removeChild(currentStick);
+      if (currentSticksDiv) {
+        currentSticksDiv.removeChild(currentStick);
+      }
       this.removeCounter--;
       sticks.noOfSticks--;
     }
@@ -159,6 +162,37 @@ class Stick {
       document.getElementById("take1Button").disabled = true;
       document.getElementById("take2Button").disabled = true;
       document.getElementById("take3Button").disabled = true;
+      game.playersArray[game.activeNumber].points += 2;
+
+      if (!highscoreArray.includes(game.playersArray[game.activeNumber])) {
+        highscoreArray.push(game.playersArray[game.activeNumber]);
+        console.log(highscoreArray);
+        let highscoreTable = document.getElementById("highscoreTable");
+        let row = document.createElement("tr");
+        let tdName = document.createElement("td");
+        let tdPoints = document.createElement("td");
+        for (let i = 0; i < 2; i++) {
+          if (i === 0) {
+            tdName.id = "name";
+            tdName.innerHTML = game.playersArray[game.activeNumber].name;
+            row.appendChild(tdName);
+          } else if (i === 1) {
+            tdPoints.id = game.playersArray[game.activeNumber].name + "points";
+            tdPoints.points = 2;
+            tdPoints.innerHTML = tdPoints.points;
+            row.appendChild(tdPoints);
+          }
+        }
+        highscoreTable.appendChild(row);
+      } else if (
+        highscoreArray.includes(game.playersArray[game.activeNumber])
+      ) {
+        let currentName = document.getElementById(
+          game.playersArray[game.activeNumber].name + "points"
+        );
+        currentName.points += 2;
+        currentName.innerHTML = currentName.points;
+      }
     }
   }
 }
@@ -166,3 +200,5 @@ class Stick {
 let game = new Game();
 
 let sticks = new Stick();
+
+let highscoreArray = [];
