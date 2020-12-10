@@ -8,6 +8,7 @@
   </head>
   
   <body>
+    <div class="bgImage"></div>
     <header>
       <nav class="navbar"> 
     <a href="index.html" class="site-logo"><img src="logo.png" alt="logo"></a>
@@ -19,7 +20,7 @@
     </nav>
     </header>    
     
-
+<div class="mainDiv">
      <div class="quote-container">
             <div class="note yellow">
               Nim, for two players. Players take turns removing one, two or three matches from the pile.
@@ -61,6 +62,7 @@
         <input type="number" id="max" placeholder="Type in number">
         </form>
        <br>
+       <div>
        <button id="startbutton" type="button" onclick="game.start()">start game</button>
        <button type="button" class="btn again" onclick="game.playAgain()">Again!</button>
       </div>
@@ -77,6 +79,29 @@
 
       <div id="sticksDiv">
 			</div>
+
+    <table class="highScore">
+      <thead>    
+        <tr>
+          <th>Name</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      <tr>
+      <td class="highScore1"></td>
+      <td id="points1"></td>
+    </tr>
+    <tr>
+      <td class="highscore2"></td>
+      <td id="points2"></td>
+    </tr>
+  </tbody>
+
+  </table>
+</div>
+
       
       <script src="script.js"></script>
     </body>
