@@ -39,14 +39,24 @@ class Game {
 
   lostGame() {
     if (sticks.noOfSticks <= 0) {
+<<<<<<< HEAD
       alert(this.currentPlayer.innerHTML + ' lost the game!');
       document.getElementById('stick').innerHTML = 0;
+=======
+      alert(this.currentPlayer.innerHTML + " lost the game!");
+>>>>>>> b98a78b5217d4bc5ec34a90f0a94435077ab4024
     }
   }
   setTotal() {
     event.preventDefault();
+<<<<<<< HEAD
     sticks.noOfSticks = document.getElementById('totalInput').value;
     document.getElementById('stick').innerHTML = sticks.noOfSticks;
+=======
+    sticks.noOfSticks = document.getElementById("totalInput").value;
+    sticks.removeCounter = sticks.noOfSticks;
+    sticks.createSticks();
+>>>>>>> b98a78b5217d4bc5ec34a90f0a94435077ab4024
   }
 }
 
@@ -166,21 +176,3 @@ class Stick {
 let game = new Game();
 
 let sticks = new Stick();
-
-function again() {
-  location.reload(true);
-}
-
-function switchPlayer() {
-  if (currentPlayer === 'p1') {
-    player = 'p2';
-  } else {
-    player = 'p1';
-  }
-}
-
-function highScore() {
-  let highscoreList = [];
-  let test = document.getElementById;
-  highScore.push();
-}
