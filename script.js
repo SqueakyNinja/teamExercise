@@ -15,6 +15,7 @@ class Game {
   }
   start() {
     sticks.noOfSticks = 21;
+    sticks.removeCounter = sticks.noOfSticks;
     document.getElementById("stick").innerHTML = 21;
     document.getElementById("take1Button").disabled = false;
     document.getElementById("take2Button").disabled = false;
@@ -76,6 +77,7 @@ class Stick {
   constructor() {
     this.noOfSticks = 21;
     this.createSticks();
+    this.removeCounter = this.noOfSticks;
   }
   createSticks() {
     // Counter is to set id on each stick
@@ -134,6 +136,8 @@ class Stick {
   }
 
   removeSticks(number) {
+    this.removeCounter -= number;
+    console.log(this.removeCounter);
     sticks.noOfSticks -= number;
     document.getElementById("stick").innerHTML = sticks.noOfSticks;
 

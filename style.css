@@ -3,10 +3,16 @@
 
 body {
   font-family: "Montserrat", sans-serif;
+  height: 100%;
+}
+.bgImage {
   background-color: #991400;
   background-image: url(bakgrund.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(4px);
+  height: 100%;
 }
-
 .navbar {
   display: flex;
 }
@@ -52,6 +58,10 @@ p {
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
+}
+
+.mainDiv {
+  background-color: snow;
 }
 
 .containerPlayer2,

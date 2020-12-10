@@ -8,6 +8,7 @@
   </head>
   
   <body>
+    <div class="bgImage"></div>
     <header>
       <nav class="navbar"> 
     <a href="index.html" class= "site-logo"><img src="logo.png" alt="logo"></a>
@@ -19,7 +20,7 @@
     </nav>
     </header>
     
-
+<div class="mainDiv">
      <div class="quote-container">
             <div class="note yellow">
                 Två spelare och en hög med 21 stickor, spelarna turas om att ta en, två eller tre stickor. Spelaren som tar den sista stickan förlorar.
@@ -65,6 +66,7 @@
         <input type="number" id="max" placeholder="Type in number">
         </form>
        <br>
+       <div>
        <button id="startbutton" type="button" onclick="game.start()">start game</button>
        <button type="button" class="btn again" onclick="game.playAgain()">Again!</button>
       </div>
@@ -103,6 +105,7 @@
   </tbody>
 
   </table>
+</div>
 
       
       <script src="script.js"></script>
