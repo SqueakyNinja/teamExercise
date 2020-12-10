@@ -166,15 +166,3 @@ class Stick {
 let game = new Game();
 
 let sticks = new Stick();
-
-function again() {
-  location.reload(true);
-}
-
-function switchPlayer() {
-  if (currentPlayer === "p1") {
-    player = "p2";
-  } else {
-    player = "p1";
-  }
-}
