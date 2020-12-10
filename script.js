@@ -77,8 +77,9 @@ class Player {
 class Stick {
   constructor() {
     this.noOfSticks = 21;
-    this.createSticks();
     this.removeCounter = this.noOfSticks;
+    this.activeDiv = 0;
+    this.createSticks();
   }
   createSticks() {
     // Counter is to set id on each stick
@@ -101,6 +102,9 @@ class Stick {
       newDiv.classList.add("sticksRow");
       // appendChild sets the created element in the "parent" element selected with in this example getElementById
       document.getElementById("sticksDiv").appendChild(newDiv);
+
+      // number that is required for removing sticks later
+      this.activeDiv = sticksPerRow;
 
       // for the amount of sticks per row, create new sticks
       for (let i = 0; i < sticksPerRow; i++) {
@@ -137,10 +141,22 @@ class Stick {
   }
 
   removeSticks(number) {
-    this.removeCounter -= number;
-    console.log(this.removeCounter);
-    sticks.noOfSticks -= number;
-    document.getElementById("stick").innerHTML = sticks.noOfSticks;
+    let currentSticksDiv = document.getElementById(
+      "sticksDiv" + this.activeDiv
+    );
+    for (let i = 0; i < number; i++) {
+      if (currentSticksDiv.childElementCount <= 0) {
+        this.activeDiv--;
+        currentSticksDiv = document.getElementById(
+          "sticksDiv" + this.activeDiv
+        );
+      }
+      let currentStick = document.getElementById(this.removeCounter);
+      currentSticksDiv.removeChild(currentStick);
+      this.removeCounter--;
+      sticks.noOfSticks--;
+      document.getElementById("stick").innerHTML = sticks.noOfSticks;
+    }
 
     game.lostGame();
     game.setActivePlayer();
