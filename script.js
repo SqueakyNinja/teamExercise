@@ -115,7 +115,6 @@ class Stick {
         // if the parent element  is hard to understand, check id of the elements in inspect in browser
         document.getElementById("sticksDiv" + sticksPerRow).appendChild(newImg);
         console.log("create stick nr " + (i + 1) + " on row " + sticksPerRow);
-
         counter++;
 
         // if all the sticks has been created, stop the creation of more sticks
