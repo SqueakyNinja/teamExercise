@@ -26,6 +26,7 @@ class Game {
   }
 
   playAgain() {
+    sticks.createSticks();
     sticks.noOfSticks = 21;
     sticks.removeCounter = sticks.noOfSticks;
     document.getElementById('stick').innerHTML = 21;
@@ -82,6 +83,11 @@ class Stick {
     this.createSticks();
   }
   createSticks() {
+    let sticksDiv = document.getElementById('sticksDiv');
+    while (sticksDiv.firstChild) {
+      sticksDiv.removeChild(sticksDiv.firstChild);
+    }
+
     // Counter is to set id on each stick
     let counter = 1;
 
