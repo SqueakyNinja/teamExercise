@@ -14,7 +14,6 @@ class Game {
     this.setActivePlayer();
   }
   start() {
-<<<<<<< HEAD
     let playerOne = prompt('Player 1, what is your name?');
     let playerTwo = prompt('Player 2, what is your name?');
 
@@ -23,33 +22,16 @@ class Game {
     }
     if (playerTwo != null) {
       document.getElementById('player2Name').innerHTML = playerTwo;
-=======
-    let playerOne = prompt("Player 1, what is your name?");
-    let playerTwo = prompt("Player 2, what is your name?");
-
-    if (playerOne != null) {
-      document.getElementById("player1Name").innerHTML = playerOne;
-    }
-    if (playerTwo != null) {
-      document.getElementById("player2Name").innerHTML = playerTwo;
->>>>>>> c31b7793c2efca2c645bdbaec0a1397ababd972c
     }
   }
 
   playAgain() {
     sticks.noOfSticks = 21;
-<<<<<<< HEAD
+    sticks.removeCounter = sticks.noOfSticks;
     document.getElementById('stick').innerHTML = 21;
     document.getElementById('take1Button').disabled = false;
     document.getElementById('take2Button').disabled = false;
     document.getElementById('take3Button').disabled = false;
-=======
-    sticks.removeCounter = sticks.noOfSticks;
-    document.getElementById("stick").innerHTML = 21;
-    document.getElementById("take1Button").disabled = false;
-    document.getElementById("take2Button").disabled = false;
-    document.getElementById("take3Button").disabled = false;
->>>>>>> c31b7793c2efca2c645bdbaec0a1397ababd972c
   }
 
   setActivePlayer() {
