@@ -30,7 +30,7 @@
             <button
               type="submit"
               class="button"
-              onclick="game.player1.setName()"
+              onclick="game.createMorePlayers(1, 1)"
             >
               Set name
             </button>
@@ -99,7 +99,7 @@
             <button
               type="submit"
               class="button"
-              onclick="game.player2.setName()"
+              onclick="game.createMorePlayers(2, 2)"
             >
               Set name
             </button>
@@ -108,7 +108,11 @@
               <option value="Human">Human</option>
             </select>
 
-            <div class="highscore" id="highscore">BLABLABLABLA</div>
+            <div class="highscore" id="highscore">
+              <table id="highscoreTable">
+                <th>Highscore</th>
+              </table>
+            </div>
           </div>
         </div>
 

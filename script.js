@@ -1,10 +1,11 @@
 class Game {
   constructor() {
-    this.player1 = new Player('Player 1', 1);
-    this.player2 = new Player('Player 2', 2);
-    this.playersArray = [this.player1, this.player2];
+    this.playersArray = [];
+    this.idCounter = 1;
+    this.createFirstPlayers('Player 1', 1);
+    this.createFirstPlayers('Player 2', 2);
     this.activeNumber = Math.floor(Math.random() * 2);
-    this.activePlayerNumber = this.playersArray[this.activeNumber].id;
+    this.activePlayerNumber = this.playersArray[this.activeNumber].position;
     this.lastPlayer = document.getElementById(
       'player' + this.activePlayerNumber + 'Name'
     );
@@ -13,7 +14,23 @@ class Game {
     );
     this.setActivePlayer();
   }
-
+  createFirstPlayers(name, position) {
+    let player = new Player(name, this.idCounter, position);
+    this.playersArray.push(player);
+    this.idCounter++;
+  }
+  createMorePlayers(number) {
+    event.preventDefault();
+    let player = new Player('', this.idCounter, number);
+    player.name = document.getElementById('name' + number).value;
+    document.getElementById('player' + player.position + 'Name').innerHTML =
+      player.name;
+    document.getElementById('name' + player.position).value = '';
+    this.idCounter++;
+    this.playersArray.splice(number - 1, 1, player);
+    this.setActivePlayer();
+    this.playAgain();
+  }
   playAgain() {
     sticks.createSticks();
     sticks.noOfSticks = 21;
@@ -29,7 +46,7 @@ class Game {
       'player' + this.activePlayerNumber + 'Name'
     );
     this.activeNumber = (this.activeNumber + 1) % this.playersArray.length;
-    this.activePlayerNumber = this.playersArray[this.activeNumber].id;
+    this.activePlayerNumber = this.playersArray[this.activeNumber].position;
     this.currentPlayer = document.getElementById(
       'player' + this.activePlayerNumber + 'Name'
     );
@@ -51,18 +68,11 @@ class Game {
 }
 
 class Player {
-  constructor(name, id) {
+  constructor(name, id, position) {
     this.name = name;
     this.id = id;
     this.points = 0;
-  }
-  setName() {
-    event.preventDefault();
-    this.name = document.getElementById('name' + this.id).value;
-    document.getElementById('player' + this.id + 'Name').innerHTML = this.name;
-    document.getElementById('name' + this.id).value = '';
-    game.setActivePlayer();
-    game.playAgain();
+    this.position = position;
   }
 }
 
@@ -111,7 +121,6 @@ class Stick {
         newImg.id = counter;
         // if the parent element  is hard to understand, check id of the elements in inspect in browser
         document.getElementById('sticksDiv' + sticksPerRow).appendChild(newImg);
-        console.log('create stick nr ' + (i + 1) + ' on row ' + sticksPerRow);
         counter++;
 
         // if all the sticks has been created, stop the creation of more sticks
@@ -141,14 +150,18 @@ class Stick {
       'sticksDiv' + this.activeDiv
     );
     for (let i = 0; i < number; i++) {
-      if (currentSticksDiv.childElementCount <= 0) {
-        this.activeDiv--;
-        currentSticksDiv = document.getElementById(
-          'sticksDiv' + this.activeDiv
-        );
+      if (currentSticksDiv) {
+        if (currentSticksDiv.childElementCount <= 0) {
+          this.activeDiv--;
+          currentSticksDiv = document.getElementById(
+            'sticksDiv' + this.activeDiv
+          );
+        }
       }
       let currentStick = document.getElementById(this.removeCounter);
-      currentSticksDiv.removeChild(currentStick);
+      if (currentSticksDiv) {
+        currentSticksDiv.removeChild(currentStick);
+      }
       this.removeCounter--;
       sticks.noOfSticks--;
     }
@@ -159,6 +172,37 @@ class Stick {
       document.getElementById('take1Button').disabled = true;
       document.getElementById('take2Button').disabled = true;
       document.getElementById('take3Button').disabled = true;
+      game.playersArray[game.activeNumber].points += 2;
+
+      if (!highscoreArray.includes(game.playersArray[game.activeNumber])) {
+        highscoreArray.push(game.playersArray[game.activeNumber]);
+        console.log(highscoreArray);
+        let highscoreTable = document.getElementById('highscoreTable');
+        let row = document.createElement('tr');
+        let tdName = document.createElement('td');
+        let tdPoints = document.createElement('td');
+        for (let i = 0; i < 2; i++) {
+          if (i === 0) {
+            tdName.id = 'name';
+            tdName.innerHTML = game.playersArray[game.activeNumber].name;
+            row.appendChild(tdName);
+          } else if (i === 1) {
+            tdPoints.id = game.playersArray[game.activeNumber].name + 'points';
+            tdPoints.points = 2;
+            tdPoints.innerHTML = tdPoints.points;
+            row.appendChild(tdPoints);
+          }
+        }
+        highscoreTable.appendChild(row);
+      } else if (
+        highscoreArray.includes(game.playersArray[game.activeNumber])
+      ) {
+        let currentName = document.getElementById(
+          game.playersArray[game.activeNumber].name + 'points'
+        );
+        currentName.points += 2;
+        currentName.innerHTML = currentName.points;
+      }
     }
   }
 }
@@ -166,3 +210,5 @@ class Stick {
 let game = new Game();
 
 let sticks = new Stick();
+
+let highscoreArray = [];
