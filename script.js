@@ -14,13 +14,6 @@ class Game {
     );
     this.setActivePlayer();
   }
-
-  disableButtons() {
-    document.getElementById('take1Button').disabled = true;
-    document.getElementById('take2Button').disabled = true;
-    document.getElementById('take3Button').disabled = true;
-  }
-
   createFirstPlayers(name, position) {
     let player = new Player(name, this.idCounter, position);
     this.playersArray.push(player);
@@ -41,7 +34,9 @@ class Game {
     sticks.createSticks();
     sticks.noOfSticks = 21;
     sticks.removeCounter = sticks.noOfSticks;
-    this.disableButtons();
+    document.getElementById('take1Button').disabled = false;
+    document.getElementById('take2Button').disabled = false;
+    document.getElementById('take3Button').disabled = false;
     sticks.createSticks();
     this.setActivePlayer();
     this.testCPU();
@@ -187,7 +182,9 @@ class Stick {
     game.testCPU();
     if (this.noOfSticks <= 0) {
       // disable buttons so you can't press the after the game has ended.
-      this.disableButtons();
+      document.getElementById('take1Button').disabled = true;
+      document.getElementById('take2Button').disabled = true;
+      document.getElementById('take3Button').disabled = true;
       // give the player who won 2 points
       game.playersArray[game.activeNumber].points += 2;
 
