@@ -6,71 +6,116 @@
     <title>NIM</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  
+
   <body>
-    <div class="bgImage"></div>
-    <header>
-      <nav class="navbar"> 
-    <a href="index.html" class= "site-logo"><img src="logo.png" alt="logo"></a>
-        <a href="rules.html">Rules</a> 
-        <a href="mattias.html">Mattias</a>
-        <a href="emma.html">Emma</a>
-        <a href="rasmus.html">Rasmus</a>
-        <a href="alexander.html">Alexander</a>           
-    </nav>
-    </header>
-    
-<div class="mainDiv">
-  <div class="quote-container">
-    <div class="note yellow">
-      Två spelare och en hög med 21 stickor, spelarna turas om att ta en, två eller tre stickor. Spelaren som tar den sista stickan förlorar.
-    </div>
-  </div>
+    <div class="wrapper">
+      <div class="bgImage"></div>
+      <div class="mainDiv">
+        <header>
+          <nav class="navbar">
+            <a href="index.html" class="site-logo"
+              ><img src="logo.png" alt="logo"
+            /></a>
+            <a href="mattias.html">Mattias</a>
+            <a href="emma.html">Emma</a>
+            <a href="rasmus.html">Rasmus</a>
+            <a href="alexander.html">Alexander</a>
+          </nav>
+        </header>
 
-  <div class="playersContainer">
+        <div class="playersContainer">
+          <div class="containerPlayer1">
+            <p id="player1Name">Player 1</p>
+            <input type="text" id="name1" placeholder="Name" />
+            <button
+              type="submit"
+              class="button"
+              onclick="game.createMorePlayers(1, 1)"
+            >
+              Set name
+            </button>
+            <select name="Player 1" id="cpu1">
+              <option value="Human">Human</option>
+              <option value="CPU">CPU</option>
+            </select>
 
-    <div class="containerPlayer1">
-      <form id="form">
-       <p id="player1Name">Player 1</p>
-          <input type="text" id="name1" placeholder="Name">
-					<button type="submit" onclick="game.player1.setName()">Set name</button>
-          <select name="Player 1">
-            <option value="Human">Human</option>
-            <option value="CPU">CPU</option>
-          </select>
-    </div>    
+            <div class="totalInput">
+              <input
+                type="number"
+                id="totalInput"
+                placeholder="Set max amount of sticks"
+              />
+              <button type="submit" class="button" onclick="game.setTotal()">
+                Set
+              </button>
+            </div>
 
-    <div class="containerPlayer2">
-      <p id="player2Name">Player 2</p>
-          <input type="text" id="name2" placeholder="Name">
-					<button type="submit" onclick="game.player2.setName()">Set name</button>
-          <select name="Player 2">
-            <option value="CPU">CPU</option>
-            <option value="Human">Human</option>
-          </select>
-    </div>
+            <div>
+              <button
+                type="button"
+                class="buttonAgain"
+                onclick="game.playAgain()"
+              >
+                Play again
+              </button>
+            </div>
 
-  </div>
+            <div class="buttons-div">
+              <button
+                id="take1Button"
+                type="button"
+                class="button"
+                onclick="sticks.removeSticks(1)"
+              >
+                Take 1
+              </button>
+              <button
+                id="take2Button"
+                type="button"
+                class="button"
+                onclick="sticks.removeSticks(2)"
+              >
+                Take 2
+              </button>
+              <button
+                id="take3Button"
+                type="button"
+                class="button"
+                onclick="sticks.removeSticks(3)"
+              >
+                Take 3
+              </button>
+            </div>
+          </div>
 
-          <input type="number" id="totalInput" placeholder="Set max amount of sticks">
-					<button type="submit" onclick="game.setTotal()">Set</button>
-        </form>
-       <br>
-       <div>
-       <button type="button" class="btnAgain" onclick="game.playAgain()">Play again</button>
-      </div>
+          <div class="note yellow">
+            Två spelare och en hög med 21 stickor, spelarna turas om att ta en,
+            två eller tre stickor. Spelaren som tar den sista stickan förlorar.
+          </div>
 
-      <div class="buttons-div">
-        <button id="take1Button" type="button" onclick="sticks.removeSticks(1)">Take 1</button>
-        <button id="take2Button" type="button" onclick="sticks.removeSticks(2)">Take 2</button>
-        <button id="take3Button" type="button" onclick="sticks.removeSticks(3)">Take 3</button>
-      </div>
+          <div class="containerPlayer2">
+            <p id="player2Name">Player 2</p>
+            <input type="text" id="name2" placeholder="Name" />
+            <button
+              type="submit"
+              class="button"
+              onclick="game.createMorePlayers(2, 2)"
+            >
+              Set name
+            </button>
+            <select name="Player 2" id="cpu2">
+              <option value="Human">Human</option>
+              <option value="CPU">CPU</option>
+            </select>
 
-      
+            <div class="highscore">
+              <h4>Highscore</h4>
+              <div id="highscore"></div>
+            </div>
+          </div>
+        </div>
 
-      <div id="sticksDiv">
-			</div>
-
+<<<<<<< HEAD
       <h3>High score</h3>
   
           <div class="row">
@@ -96,4 +141,12 @@
       
       <script src="script.js"></script>
     </body>
+=======
+        <div id="sticksDiv" class="sticksDiv"></div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+>>>>>>> ed8e64c60dda0d7a88528c3cd58e73fba2c7ba78
 </html>

@@ -1,10 +1,11 @@
 class Game {
   constructor() {
-    this.player1 = new Player("Player 1", 1);
-    this.player2 = new Player("Player 2", 2);
-    this.playersArray = [this.player1, this.player2];
+    this.playersArray = [];
+    this.idCounter = 1;
+    this.createFirstPlayers("Player 1", 1);
+    this.createFirstPlayers("Player 2", 2);
     this.activeNumber = Math.floor(Math.random() * 2);
-    this.activePlayerNumber = this.playersArray[this.activeNumber].id;
+    this.activePlayerNumber = this.playersArray[this.activeNumber].position;
     this.lastPlayer = document.getElementById(
       "player" + this.activePlayerNumber + "Name"
     );
@@ -13,7 +14,22 @@ class Game {
     );
     this.setActivePlayer();
   }
-
+  createFirstPlayers(name, position) {
+    let player = new Player(name, this.idCounter, position);
+    this.playersArray.push(player);
+    this.idCounter++;
+  }
+  createMorePlayers(number) {
+    event.preventDefault();
+    let player = new Player("", this.idCounter, number);
+    player.name = document.getElementById("name" + number).value;
+    document.getElementById("player" + player.position + "Name").innerHTML =
+      player.name;
+    document.getElementById("name" + player.position).value = "";
+    this.idCounter++;
+    this.playersArray.splice(number - 1, 1, player);
+    this.playAgain();
+  }
   playAgain() {
     sticks.createSticks();
     sticks.noOfSticks = 21;
@@ -22,6 +38,8 @@ class Game {
     document.getElementById("take2Button").disabled = false;
     document.getElementById("take3Button").disabled = false;
     sticks.createSticks();
+    this.setActivePlayer();
+    this.testCPU();
   }
 
   setActivePlayer() {
@@ -29,40 +47,42 @@ class Game {
       "player" + this.activePlayerNumber + "Name"
     );
     this.activeNumber = (this.activeNumber + 1) % this.playersArray.length;
-    this.activePlayerNumber = this.playersArray[this.activeNumber].id;
+    this.activePlayerNumber = this.playersArray[this.activeNumber].position;
     this.currentPlayer = document.getElementById(
       "player" + this.activePlayerNumber + "Name"
     );
     this.lastPlayer.classList.remove("active");
     this.currentPlayer.classList.add("active");
   }
+  testCPU() {
+    let currentCPU = document.getElementById("cpu" + (this.activeNumber + 1));
+    if (currentCPU.value === "CPU" && sticks.noOfSticks > 0) {
+      setTimeout(
+        () => sticks.removeSticks(Math.floor(Math.random() * 3) + 1),
+        500
+      );
+    }
+  }
 
   lostGame() {
     if (sticks.noOfSticks <= 0) {
       alert(this.currentPlayer.innerHTML + " lost the game!");
-      document.getElementById("stick").innerHTML = 0;
     }
   }
   setTotal() {
     event.preventDefault();
     sticks.noOfSticks = document.getElementById("totalInput").value;
-    document.getElementById("stick").innerHTML = sticks.noOfSticks;
+    sticks.removeCounter = sticks.noOfSticks;
+    sticks.createSticks();
   }
 }
 
 class Player {
-  constructor(name, id) {
+  constructor(name, id, position) {
     this.name = name;
     this.id = id;
     this.points = 0;
-  }
-  setName() {
-    event.preventDefault();
-    this.name = document.getElementById("name" + this.id).value;
-    document.getElementById("player" + this.id + "Name").innerHTML = this.name;
-    document.getElementById("name" + this.id).value = "";
-    game.setActivePlayer();
-    game.playAgain();
+    this.position = position;
   }
 }
 
@@ -73,6 +93,7 @@ class Stick {
     this.activeDiv = 0;
     this.createSticks();
   }
+
   createSticks() {
     let sticksDiv = document.getElementById("sticksDiv");
     while (sticksDiv.firstChild) {
@@ -88,8 +109,6 @@ class Stick {
     let sticksTotal = this.noOfSticks;
     // counts how many sticks have been added
     let sticksAdded = 0;
-    // dont know if this will be needed
-    // let array = [];
 
     // do this while not all sticks has been added
     while (sticksAdded < sticksTotal) {
@@ -111,7 +130,6 @@ class Stick {
         newImg.id = counter;
         // if the parent element  is hard to understand, check id of the elements in inspect in browser
         document.getElementById("sticksDiv" + sticksPerRow).appendChild(newImg);
-        console.log("create stick nr " + (i + 1) + " on row " + sticksPerRow);
         counter++;
 
         // if all the sticks has been created, stop the creation of more sticks
@@ -130,9 +148,6 @@ class Stick {
       if (sticksAdded > sticksTotal) {
         sticksAdded = sticksTotal;
       }
-
-      // dont know if this will be needed
-      // array.push(sticksAdded);
     }
   }
 
@@ -141,43 +156,77 @@ class Stick {
       "sticksDiv" + this.activeDiv
     );
     for (let i = 0; i < number; i++) {
-      if (currentSticksDiv.childElementCount <= 0) {
-        this.activeDiv--;
-        currentSticksDiv = document.getElementById(
-          "sticksDiv" + this.activeDiv
-        );
+      if (currentSticksDiv) {
+        if (currentSticksDiv.childElementCount <= 0) {
+          this.activeDiv--;
+          currentSticksDiv = document.getElementById(
+            "sticksDiv" + this.activeDiv
+          );
+        }
       }
       let currentStick = document.getElementById(this.removeCounter);
-      currentSticksDiv.removeChild(currentStick);
+      if (currentSticksDiv) {
+        currentSticksDiv.removeChild(currentStick);
+      }
       this.removeCounter--;
-      sticks.noOfSticks--;
+      this.noOfSticks--;
     }
 
     game.lostGame();
     game.setActivePlayer();
+    game.testCPU();
     if (this.noOfSticks <= 0) {
+      // disable buttons so you can't press the after the game has ended.
       document.getElementById("take1Button").disabled = true;
       document.getElementById("take2Button").disabled = true;
       document.getElementById("take3Button").disabled = true;
+      // give the player who won 2 points
+      game.playersArray[game.activeNumber].points += 2;
+
+      // if the current player is not already in the highscoreArray, add the player to it
+      if (
+        !highscoreArray
+          .map((x) => x.name)
+          .includes(game.playersArray[game.activeNumber].name)
+      ) {
+        highscoreArray.push(game.playersArray[game.activeNumber]);
+      }
+
+      // Sort list based on points
+      highscoreArray.sort((a, b) => b.points - a.points);
+
+      // Creation and recreation of highscore
+
+      //Remove all items in highscore
+      let highscoreDiv = document.getElementById("highscore");
+      while (highscoreDiv.firstChild) {
+        highscoreDiv.removeChild(highscoreDiv.firstChild);
+      }
+
+      // Create all items in highscore with the already sorted array
+      // For each player in highscoreArray, add a div and 2 spans with name and points,
+      // and then add the div to highscore
+      for (let i = 0; i < highscoreArray.length; i++) {
+        const element = highscoreArray[i];
+
+        let newDiv = document.createElement("div");
+        newDiv.id = "highscore" + (i + 1);
+        newDiv.classList.add("playerHighscore");
+
+        let nameSpan = document.createElement("span");
+        nameSpan.innerHTML = element.name;
+        newDiv.appendChild(nameSpan);
+
+        let pointsSpan = document.createElement("span");
+        pointsSpan.innerHTML = element.points;
+        newDiv.appendChild(pointsSpan);
+
+        document.getElementById("highscore").appendChild(newDiv);
+      }
     }
   }
 }
-
-let game = new Game();
-
-let sticks = new Stick();
-
-function again() {
-  location.reload(true);
-}
-
-function switchPlayer() {
-  if (currentPlayer === "p1") {
-    player = "p2";
-  } else {
-    player = "p1";
-  }
-}
+<<<<<<< HEAD
 function highscorePage(usrName, usrScore) {
   clearContent();
   if(typeof usrScore !== 'undefined') {
@@ -211,3 +260,10 @@ function highscorePage(usrName, usrScore) {
       return;
   });
 }
+=======
+
+let sticks = new Stick();
+let game = new Game();
+
+let highscoreArray = [];
+>>>>>>> ed8e64c60dda0d7a88528c3cd58e73fba2c7ba78
