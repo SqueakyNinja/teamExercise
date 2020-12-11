@@ -14,6 +14,13 @@ class Game {
     );
     this.setActivePlayer();
   }
+
+  disableButtons() {
+    document.getElementById('take1Button').disabled = true;
+    document.getElementById('take2Button').disabled = true;
+    document.getElementById('take3Button').disabled = true;
+  }
+
   createFirstPlayers(name, position) {
     let player = new Player(name, this.idCounter, position);
     this.playersArray.push(player);
@@ -34,13 +41,12 @@ class Game {
     sticks.createSticks();
     sticks.noOfSticks = 21;
     sticks.removeCounter = sticks.noOfSticks;
-    document.getElementById('take1Button').disabled = false;
-    document.getElementById('take2Button').disabled = false;
-    document.getElementById('take3Button').disabled = false;
+    this.disableButtons();
     sticks.createSticks();
     this.setActivePlayer();
     this.testCPU();
   }
+
   setActivePlayer() {
     this.lastPlayer = document.getElementById(
       'player' + this.activePlayerNumber + 'Name'
@@ -54,8 +60,8 @@ class Game {
     this.currentPlayer.classList.add('active');
   }
   testCPU() {
-    let currentCPU = document.getElementById("cpu" + (this.activeNumber + 1));
-    if (currentCPU.value === "CPU" && sticks.noOfSticks > 0) {
+    let currentCPU = document.getElementById('cpu' + (this.activeNumber + 1));
+    if (currentCPU.value === 'CPU' && sticks.noOfSticks > 0) {
       setTimeout(
         () => sticks.removeSticks(Math.floor(Math.random() * 3) + 1),
         500
@@ -181,9 +187,7 @@ class Stick {
     game.testCPU();
     if (this.noOfSticks <= 0) {
       // disable buttons so you can't press the after the game has ended.
-      document.getElementById('take1Button').disabled = true;
-      document.getElementById('take2Button').disabled = true;
-      document.getElementById('take3Button').disabled = true;
+      this.disableButtons();
       // give the player who won 2 points
       game.playersArray[game.activeNumber].points += 2;
 
