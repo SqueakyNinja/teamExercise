@@ -28,7 +28,6 @@ class Game {
     document.getElementById('name' + player.position).value = '';
     this.idCounter++;
     this.playersArray.splice(number - 1, 1, player);
-    this.setActivePlayer();
     this.playAgain();
   }
   playAgain() {
@@ -39,8 +38,9 @@ class Game {
     document.getElementById('take2Button').disabled = false;
     document.getElementById('take3Button').disabled = false;
     sticks.createSticks();
+    this.setActivePlayer();
+    this.testCPU();
   }
-
   setActivePlayer() {
     this.lastPlayer = document.getElementById(
       'player' + this.activePlayerNumber + 'Name'
@@ -52,6 +52,15 @@ class Game {
     );
     this.lastPlayer.classList.remove('active');
     this.currentPlayer.classList.add('active');
+  }
+  testCPU() {
+    let currentCPU = document.getElementById("cpu" + (this.activeNumber + 1));
+    if (currentCPU.value === "CPU" && sticks.noOfSticks > 0) {
+      setTimeout(
+        () => sticks.removeSticks(Math.floor(Math.random() * 3) + 1),
+        500
+      );
+    }
   }
 
   lostGame() {
@@ -83,6 +92,7 @@ class Stick {
     this.activeDiv = 0;
     this.createSticks();
   }
+
   createSticks() {
     let sticksDiv = document.getElementById('sticksDiv');
     while (sticksDiv.firstChild) {
@@ -163,11 +173,12 @@ class Stick {
         currentSticksDiv.removeChild(currentStick);
       }
       this.removeCounter--;
-      sticks.noOfSticks--;
+      this.noOfSticks--;
     }
 
     game.lostGame();
     game.setActivePlayer();
+    game.testCPU();
     if (this.noOfSticks <= 0) {
       // disable buttons so you can't press the after the game has ended.
       document.getElementById('take1Button').disabled = true;
@@ -201,8 +212,6 @@ class Stick {
       // and then add the div to highscore
       for (let i = 0; i < highscoreArray.length; i++) {
         const element = highscoreArray[i];
-        console.log(element.name, element.points);
-        console.log(highscoreArray);
 
         let newDiv = document.createElement('div');
         newDiv.id = 'highscore' + (i + 1);
@@ -222,8 +231,7 @@ class Stick {
   }
 }
 
-let game = new Game();
-
 let sticks = new Stick();
+let game = new Game();
 
 let highscoreArray = [];
