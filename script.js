@@ -169,39 +169,54 @@ class Stick {
     game.lostGame();
     game.setActivePlayer();
     if (this.noOfSticks <= 0) {
+      // disable buttons so you can't press the after the game has ended.
       document.getElementById("take1Button").disabled = true;
       document.getElementById("take2Button").disabled = true;
       document.getElementById("take3Button").disabled = true;
+      // give the player who won 2 points
       game.playersArray[game.activeNumber].points += 2;
 
-      if (!highscoreArray.includes(game.playersArray[game.activeNumber])) {
-        highscoreArray.push(game.playersArray[game.activeNumber]);
-        console.log(highscoreArray);
-        let highscoreTable = document.getElementById("highscoreTable");
-        let row = document.createElement("tr");
-        let tdName = document.createElement("td");
-        let tdPoints = document.createElement("td");
-        for (let i = 0; i < 2; i++) {
-          if (i === 0) {
-            tdName.id = "name";
-            tdName.innerHTML = game.playersArray[game.activeNumber].name;
-            row.appendChild(tdName);
-          } else if (i === 1) {
-            tdPoints.id = game.playersArray[game.activeNumber].name + "points";
-            tdPoints.points = 2;
-            tdPoints.innerHTML = tdPoints.points;
-            row.appendChild(tdPoints);
-          }
-        }
-        highscoreTable.appendChild(row);
-      } else if (
-        highscoreArray.includes(game.playersArray[game.activeNumber])
+      // if the current player is not already in the highscoreArray, add the player to it
+      if (
+        !highscoreArray
+          .map((x) => x.name)
+          .includes(game.playersArray[game.activeNumber].name)
       ) {
-        let currentName = document.getElementById(
-          game.playersArray[game.activeNumber].name + "points"
-        );
-        currentName.points += 2;
-        currentName.innerHTML = currentName.points;
+        highscoreArray.push(game.playersArray[game.activeNumber]);
+      }
+
+      // Sort list based on points
+      highscoreArray.sort((a, b) => b.points - a.points);
+
+      // Creation and recreation of highscore
+
+      //Remove all items in highscore
+      let highscoreDiv = document.getElementById("highscore");
+      while (highscoreDiv.firstChild) {
+        highscoreDiv.removeChild(highscoreDiv.firstChild);
+      }
+
+      // Create all items in highscore with the already sorted array
+      // For each player in highscoreArray, add a div and 2 spans with name and points,
+      // and then add the div to highscore
+      for (let i = 0; i < highscoreArray.length; i++) {
+        const element = highscoreArray[i];
+        console.log(element.name, element.points);
+        console.log(highscoreArray);
+
+        let newDiv = document.createElement("div");
+        newDiv.id = "highscore" + (i + 1);
+        newDiv.classList.add("playerHighscore");
+
+        let nameSpan = document.createElement("span");
+        nameSpan.innerHTML = element.name;
+        newDiv.appendChild(nameSpan);
+
+        let pointsSpan = document.createElement("span");
+        pointsSpan.innerHTML = element.points;
+        newDiv.appendChild(pointsSpan);
+
+        document.getElementById("highscore").appendChild(newDiv);
       }
     }
   }
